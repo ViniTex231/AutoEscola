@@ -14,6 +14,24 @@ export default function NewCar({ navigation }){
   const [ano, setAno] = useState(0)
   const [dono, setDono] = useState('')
 
+  const adicionar = ()=>{
+    axios.post('http://127.0.0.1:8000/api/v1/carros/',
+    {
+      nome:nome,
+      placa:placa,
+      ano:ano,
+      dono:dono
+    }
+    ).then((res)=>{
+      setNome('')
+      setPlaca('')
+      setAno(0)
+      setDono('')
+    }).catch((erro)=>{
+      console.log(erro)
+    })
+  }
+
   return(
     <View style={styles.container}>
       <Navbar/>
@@ -37,7 +55,7 @@ export default function NewCar({ navigation }){
           </View>
           <Input label="Proprietario" placeholder="Alemão"/>
           <View style={styles.button}>
-            <ButtonBig label="Adicionar"/>
+            <ButtonBig label="Adicionar" onPress={adicionar}/>
           </View>
         </View>
       </View>
